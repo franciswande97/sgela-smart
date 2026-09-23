@@ -1,6 +1,6 @@
 # Sgela-Smart
 
-**Smart Student Task and Goal Management Platform** — an execution layer for academic work, not another standalone planner.
+**Smart Student Task and Goal Management Platform** — an execution layer for academic work, not another standalone planner. (Internally referred to as the "Intelligent Flight Controller for Learning" in the original project proposal.)
 
 Students already have digital planners and AI chat tools. What's missing is something that connects the two: automated calendar ingestion instead of manual setup, and AI assistance that actually knows the student's real tasks, goals, and free time — rather than starting from zero context every session. That's what this project builds.
 
