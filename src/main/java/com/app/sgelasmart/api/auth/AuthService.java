@@ -1,8 +1,9 @@
 package com.app.sgelasmart.api.auth;
 
-import com.app.sgelasmart.api.auth.dto.AuthResponse;
 import com.app.sgelasmart.api.auth.dto.LoginRequest;
+import com.app.sgelasmart.api.auth.dto.LoginResponse;
 import com.app.sgelasmart.api.auth.dto.RegisterRequest;
+import com.app.sgelasmart.api.auth.dto.RegisterResponse;
 import com.app.sgelasmart.model.User;
 import com.app.sgelasmart.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,7 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public AuthResponse register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new IllegalArgumentException("Email is already registered");
         }
@@ -32,16 +33,16 @@ public class AuthService {
 
         String token = jwtService.generateToken(savedUser.getEmail());
 
-        return new AuthResponse(
-            savedUser.getId(),
-            savedUser.getEmail(),
-            savedUser.getName(),
-            token,
-            "User registered successfully"
+        return new RegisterResponse(
+                savedUser.getId(),
+                savedUser.getEmail(),
+                savedUser.getName(),
+                token,
+                "User registered successfully"
         );
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
 
@@ -51,12 +52,11 @@ public class AuthService {
 
         String token = jwtService.generateToken(user.getEmail());
 
-        return new AuthResponse(
-            user.getId(),
-            user.getEmail(),
-            user.getName(),
-            token,
-            "Login successful"
+        return new LoginResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getName(),
+                token
         );
     }
 }

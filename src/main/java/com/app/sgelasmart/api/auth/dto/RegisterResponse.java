@@ -1,6 +1,6 @@
 package com.app.sgelasmart.api.auth.dto;
 
-public record AuthResponse(
+public record RegisterResponse(
     Long id,
     String email,
     String name,
