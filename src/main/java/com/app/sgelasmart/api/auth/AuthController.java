@@ -4,8 +4,10 @@ import com.app.sgelasmart.api.auth.dto.LoginRequest;
 import com.app.sgelasmart.api.auth.dto.LoginResponse;
 import com.app.sgelasmart.api.auth.dto.RegisterRequest;
 import com.app.sgelasmart.api.auth.dto.RegisterResponse;
+import com.app.sgelasmart.api.auth.dto.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,6 +29,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         LoginResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
+        UserResponse response = authService.getCurrentUser(authentication.getName());
         return ResponseEntity.ok(response);
     }
 }

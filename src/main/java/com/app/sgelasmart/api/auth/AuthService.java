@@ -4,6 +4,7 @@ import com.app.sgelasmart.api.auth.dto.LoginRequest;
 import com.app.sgelasmart.api.auth.dto.LoginResponse;
 import com.app.sgelasmart.api.auth.dto.RegisterRequest;
 import com.app.sgelasmart.api.auth.dto.RegisterResponse;
+import com.app.sgelasmart.api.auth.dto.UserResponse;
 import com.app.sgelasmart.model.User;
 import com.app.sgelasmart.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,6 +58,17 @@ public class AuthService {
                 user.getEmail(),
                 user.getName(),
                 token
+        );
+    }
+
+    public UserResponse getCurrentUser(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return new UserResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getName()
         );
     }
 }
